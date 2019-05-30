@@ -4,7 +4,12 @@
   <artifactId>mysite</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
+
   <modules>
   	<module>mysite01</module>
+  	<module>mysite02</module>
+  	<module>mysite03</module>
+  	<module>mysite04</module>
+  	<module>mysitespringboot</module>
   </modules>
 </project>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- auto Proxy -->
+	<aop:aspectj-autoproxy />
+
+	<!-- 1. validator, conversionService, messageConverter를 자동으로 등록 -->
+	<mvc:annotation-driven>
+		<!-- messageConverter message를 utf-8로 인코딩 -->
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/html; charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>application/json; charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+		</mvc:message-converters>
+		
+		<!-- Argument Resolver -->
+		<mvc:argument-resolvers>
+			<bean class="com.cafe24.security.AuthUserHandlerMethodArgumentResover"></bean>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+
+	<!-- 2. 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
+	<mvc:default-servlet-handler />
+
+	<!-- 3. viewResolver 설정 / 어노테이션이 없는 빈들은 빈설정을 해야한다. -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver"><!-- viewResolver 생성 -->
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" /><!-- setter가 필요하다. 
+			한개만 설정하는 것 여러 viewList를 설정할 경우 따로 설정해야 한다. -->
+		<property name="prefix" value="/WEB-INF/views/" /><!-- viewResover.setPrefix("/WEB-INF/views")이렇게 -->
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- 6. MessageSource 텍스트를 출력하여 jsp화면에 출력-->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>messages/messages_ko</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Interceptors -->
+ 	 <mvc:interceptors>
+        <!-- <mvc:interceptor>
+        	<mvc:mapping path="/guestbook/**" /> 
+    	<bean class="com.cafe24.mysite.interceptor.MyInterceptor02" />
+        </mvc:interceptor> -->
+        <mvc:interceptor>
+        	<mvc:mapping path="/user/auth"/> 
+    			<bean class="com.cafe24.security.AuthLoginInterceptor" />
+        	</mvc:interceptor>
+        <mvc:interceptor>
+        	<mvc:mapping path="/user/logout"/> 
+    			<bean class="com.cafe24.security.AuthLogoutInterceptor" />
+        </mvc:interceptor>
+         <mvc:interceptor>
+        	<mvc:mapping path="/**"/> 
+        	<mvc:exclude-mapping path="/user/auth"/>
+        	<mvc:exclude-mapping path="/user/logout"/>
+        	<mvc:exclude-mapping path="/assets/**"/>
+    		<bean class="com.cafe24.security.AuthInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+	
+	<!-- 빈설정을 annotation으로 한다.(자동스캐닝 @Controller에 대한 auto scanning) -->
+	<context:annotation-config /><!-- 어노테이션이 붙은 클래스를 찾아서 컨테이너에 등록 -->
+	<!-- Controller Scanning하는 base package 지정 -->
+	<context:component-scan
+		base-package="com.cafe24.mysite.controller, com.cafe24.mysite.controller.api, com.cafe24.mysite.exception " /><!-- 
+		이 패키지 내에서만 찾아라 -->
+
+</beans>

@@ -1,0 +1,62 @@
+1. Maven Project 설정
+
+2. POM 설정
+
+3. web.xml
+	| --------- Controller <- Service <- Repository <- SQLSession
+	
+4. AppConfig 설정(Root Container - Application Context)
+
+	| --------- DBConfig : DataSource(Java class)
+		| --------- JDBC.properties (DB의 아이디와 비밀번호가 있는 파일 => 암호화하기 깃허브에 볼 수 있으므로
+	| --------- MyBatisConfig : sqlSession, sqlSessionFactory (MixingConfig)
+	
+5. WebConfig (Spring Container - )
+	| -------- MVCConfig
+	| -------- SecurityConfig( Spring Security로 변환 예정)
+	| -------- MessageConfig
+	| -------- FileUploadConfig
+	
+6. GlobalExceptionHandler	
+
+7. slf4j, Logback
+
+/WEB-INF
+	| ----- classes [src/main/java, scr/main/resoures, src/test/java, src/test/resources]
+		| ---- /com
+			| ---- /cafe24
+				 | ---- /mysite
+				 |	| --- /config
+				 |		| --- AppConfig
+				 |		| --- WebConfig
+				 |
+				 | ---- /config (회사가 공통으로 사용하는 설정들) jar 를 떙겨오는 느낌
+				 	| --- /app
+				 	|		|--- DBConfig
+				 	|		|--- MyBatisConfig
+				 	|		|--- /mybatis
+				 	|		|			|--- configuration.xml
+				 	|		|--- jdbc.properties
+				 	| --- /web
+				 	|		|--- MVCConfig
+				 	|		|--- SecurityConfig
+				 	|		|--- MessageConfig
+				 	|		|--- FileUploadConfig
+				 	|		|--- /messages
+				 	|		|		|--- message_ko.properties	
+				 	|		|--- /properties
+				 	|		|		|--- multipart.properties	
+				 	
+				 	
+				 	
+				 	
+				 	
+				 	
+				 	
+				 	
+				 	
+				 	
+				 	
+				 	
+				 	
+				 	

@@ -56,7 +56,7 @@
 	<select id="get" parameterType="string" resultType="boardvo">
 		select no,title,hit,date_format(reg_date,'%Y-%m-%d %h:%i:%s') as reg_date,contents,group_no,order_no,depth,member_no as memberNo, (select name from user where no = b.member_no) as memberName,originfilename,savefilename from board b where no=#{no}  order by reg_date desc
 	</select>
-	
+
 	<update id="updatehit" parameterType="string">
 		update board set hit=hit+1 where no = #{no}
 	</update>

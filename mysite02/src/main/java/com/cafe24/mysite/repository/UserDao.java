@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -72,6 +73,14 @@ public class UserDao {
 
 	public UserVo get(String email) {
 		return sqlSession.selectOne("user.getByEmail",email);
+	}
+
+	public List<UserVo> getUserList() {
+		return sqlSession.selectList("user.getList");
+	}
+
+	public void updateRole(UserVo uservo) {
+		sqlSession.update("user.updateRole", uservo);
 	}
 
 

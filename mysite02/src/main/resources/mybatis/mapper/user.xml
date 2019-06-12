@@ -18,6 +18,12 @@
 			select no,name,email,gender,role from user where email = #{email} and password = #{password}
 		]]>
 	</select>
+	<select id="getList" parameterType="uservo"
+		resultType="uservo">
+		<![CDATA[
+			select no,name,email,gender,role from user 
+		]]>
+	</select>
 
 	<select id="getByEmail" parameterType="string" resultType="uservo">
 		<![CDATA[
@@ -48,6 +54,12 @@
 	<select id="getpw" parameterType="uservo" resultType="string">
 		select password from user where no = #{no}
 	</select>
+	
+	<update id="updateRole" parameterType="uservo">
+		<![CDATA[
+			update user set role=#{role} where no=#{no}				
+		]]>
+	</update>
 	
 
 </mapper>

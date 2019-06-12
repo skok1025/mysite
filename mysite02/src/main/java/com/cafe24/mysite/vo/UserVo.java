@@ -1,13 +1,26 @@
 package com.cafe24.mysite.vo;
 
+import java.util.List;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class UserVo {
 
+	
+	private List<UserVo> list;
+
 	private Long no;
 	
+	public List<UserVo> getList() {
+		return list;
+	}
+
+	public void setList(List<UserVo> list) {
+		this.list = list;
+	}
+
 	@NotEmpty
 	@Length(min=2, max=8)
 	private String name;

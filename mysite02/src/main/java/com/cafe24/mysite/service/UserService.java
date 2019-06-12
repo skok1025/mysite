@@ -1,5 +1,7 @@
 package com.cafe24.mysite.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,10 @@ public class UserService {
 
 	public UserVo getUser(Long no) {
 		return userDao.get(no);
+	}
+
+	public List<UserVo> getUserList() {
+		return userDao.getUserList();
 	}
 
 }

@@ -41,6 +41,12 @@ public class MainController {
 	}
 	
 	
+	@RequestMapping("/security")
+	public String security() {
+		return "main/security";
+	}
+	
+	
 	
 	
 	

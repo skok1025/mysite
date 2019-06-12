@@ -8,6 +8,16 @@ public class GuestbookVo {
 	private String contents;
 	private String regDate;
 	
+	private int presult;
+	
+	
+	
+	public int getPresult() {
+		return presult;
+	}
+	public void setPresult(int presult) {
+		this.presult = presult;
+	}
 	public Long getNo() {
 		return no;
 	}
@@ -41,7 +51,7 @@ public class GuestbookVo {
 	@Override
 	public String toString() {
 		return "GuestbookVo [no=" + no + ", name=" + name + ", password=" + password + ", contents=" + contents
-				+ ", regDate=" + regDate + "]";
+				+ ", regDate=" + regDate + ", presult=" + presult + "]";
 	}
 	
 	

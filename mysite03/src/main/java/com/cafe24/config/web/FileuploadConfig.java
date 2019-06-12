@@ -23,6 +23,7 @@ public class FileuploadConfig  extends WebMvcConfigurerAdapter{
 		multipartResolver.setMaxInMemorySize(env.getProperty("maxInMemorySize",Integer.class));
 		multipartResolver.setDefaultEncoding(env.getProperty("defaultEncoding"));
 		
+		
 		return multipartResolver;
 	}
 	@Override

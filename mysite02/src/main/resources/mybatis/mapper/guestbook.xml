@@ -27,9 +27,16 @@
 		]]>
 	</delete>
 	
-	<insert id="insert" parameterType="guestbookvo">
-		<![CDATA[
-			insert into guestbook values(null,#{name},#{password},#{contents},now())
+	<insert id="insert" parameterType="guestbookvo" statementType="CALLABLE">
+		<![CDATA[		
+		{ call proc_insertguestbook
+			(
+				#{name,jdbcType=VARCHAR}
+				,#{password,jdbcType=VARCHAR}
+				,#{contents,jdbcType=VARCHAR}
+				,#{presult,mode=OUT,jdbcType=INTEGER,javaType=Integer}
+			)
+		}
 		]]>
 	</insert>
 

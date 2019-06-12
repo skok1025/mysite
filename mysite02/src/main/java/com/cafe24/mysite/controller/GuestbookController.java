@@ -32,7 +32,7 @@ public class GuestbookController {
 		
 		int result = guestbookService.addContent(guestbookVo);
 		// result 에 따른 처리
-		
+		result = guestbookVo.getPresult();
 		return "redirect:/guestbook/list";
 	}
 	

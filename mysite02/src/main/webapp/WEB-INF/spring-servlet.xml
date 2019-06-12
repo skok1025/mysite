@@ -84,6 +84,7 @@
 			<bean class="com.cafe24.security.AuthAdminAccessInterceptor"/>
 		</mvc:interceptor>
 		
+		
 		<mvc:interceptor>
 			<mvc:mapping path="/user/auth" />
 			<bean class="com.cafe24.security.AuthLoginInterceptor" />

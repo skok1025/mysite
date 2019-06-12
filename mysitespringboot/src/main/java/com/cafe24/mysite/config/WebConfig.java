@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -28,6 +29,7 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 //@EnableWebMvc
 //@ComponentScan({ "com.cafe24.mysite.controller" })
 //@Import({MVCConfig.class,SecurityConfig.class, MessageConfig.class})
+@Import(SecurityConfig.class)
 public class WebConfig implements WebMvcConfigurer {
 
 	//

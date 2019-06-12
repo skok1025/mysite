@@ -7,13 +7,19 @@ import java.io.OutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cafe24.mysite.repository.UserDao;
 import com.cafe24.mysite.vo.SiteVo;
+import com.cafe24.mysite.vo.UserVo;
 
 @Service
 public class AdminService {
 
 	@Autowired
 	private AdminDao admindao;
+	
+	@Autowired
+	private UserDao userdao;
+	
 	private static final String SAVE_PATH = "/mysite-uploads";
 
 	public int mainupdate(SiteVo siteVo) {
@@ -30,6 +36,10 @@ public class AdminService {
 			e.printStackTrace();
 		}
 		return admindao.siteinsert(siteVo);
+	}
+
+	public void updateRole(UserVo uservo) {
+		userdao.updateRole(uservo);
 	}
 	
 }

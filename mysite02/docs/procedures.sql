@@ -16,7 +16,6 @@ DELIMITER $$
 
 	end $$
 
-
 	CREATE procedure proc_selectguestbook
 	()
 	begin

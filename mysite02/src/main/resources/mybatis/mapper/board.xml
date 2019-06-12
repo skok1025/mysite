@@ -39,7 +39,6 @@
 		]]>
 	</select>
 	
-	
 	<insert id="replyinsert" parameterType="boardvo">
 		<![CDATA[
 		insert into board values(null,#{title},0,now(),#{contents},#{group_no},#{order_no},#{depth},#{originfilename},#{savefilename},'exist',#{memberNo})

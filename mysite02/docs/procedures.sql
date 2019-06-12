@@ -37,7 +37,7 @@ BEGIN
 	WHILE i <= 10000 DO 
 
 		 insert into
-		board values(null,'제목',0,now(),'내용',(select ifnull(max(b1.group_no),0)+1 from board b1),(select ifnull(max(b2.order_no),0)+1 from board b2),0,null,null,'exist',1);
+		board values(null,cast(i as char),0,now(),'내용',(select ifnull(max(b1.group_no),0)+1 from board b1),(select ifnull(max(b2.order_no),0)+1 from board b2),0,null,null,'exist',1);
 		SET i = i + 1;
 
 	END WHILE;

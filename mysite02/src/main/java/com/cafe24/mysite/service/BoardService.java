@@ -81,7 +81,7 @@ public class BoardService {
 		
 		return result;
 	}
-
+// Transaction 처리를 procedure 을 이용하여 처리할 예정
 	public int writeContents(int replyno, BoardVo vo) {
 		try {
 			String originfilename = vo.getAttach().getOriginalFilename();

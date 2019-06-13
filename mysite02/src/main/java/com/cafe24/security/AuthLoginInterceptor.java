@@ -16,6 +16,7 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		System.out.println("AuthLoginInterceptor-preHandle");
+		System.out.println("Referer Header: "+request.getHeader("Referer"));
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
@@ -36,11 +37,16 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter{
 			response.sendRedirect(request.getContextPath()+"/user/login");
 			return false;
 		}
+		Object returnURI = request.getSession().getAttribute("redirectURI");
+		
 		// 세션 처리
 		HttpSession session = request.getSession(true);
 		session.setAttribute("authuser", authuser);
-		response.sendRedirect(request.getContextPath());
-				
+		if(returnURI == null) {
+			response.sendRedirect(request.getContextPath());
+		} else {
+			response.sendRedirect(returnURI.toString());
+		}		
 		return false;
 	}
 }

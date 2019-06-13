@@ -34,9 +34,11 @@
 	</select>
 	
 	<select id="getList" parameterType="map" resultType="boardvo" >
-		<![CDATA[
+		<!-- <![CDATA[
+			select isexist,no,member_no as memberNo, title, hit,date_format(reg_date,'%Y-%m-%d %h:%i:%s') as reg_date,(select name from user where no = b.member_no) as memberName,contents,originfilename,savefilename,depth from board b where title like concat('%',#{kwd},'%') order by group_no desc,order_no desc 
+		limit #{countperpage} offset #{start};
+		]]> --> 
 		{call proc_selectBoard(#{start},#{countperpage},#{kwd})}
-		]]>
 	</select>
 	
 	<insert id="replyinsert" parameterType="boardvo">

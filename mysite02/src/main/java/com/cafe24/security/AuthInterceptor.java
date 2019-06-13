@@ -16,6 +16,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			HttpServletResponse response, 
 			Object handler)
 			throws Exception {
+		System.out.println("AuthAccessInterceptor-preHandle");
+		System.out.println("Referer Header: "+request.getHeader("Referer"));
+		
 		
 		// DefaultServletHttpRequestHandler
 		// 1. 핸들러 종류 확인  이미지 같은게 들어온다
@@ -47,6 +50,9 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		
 		if(session == null) { // 인증이 안됨
+			// 돌아가기 위한 URI 세션객체에 설정
+			session.setAttribute("redirectURI", request.getHeader("Referer"));
+			
 			response.sendRedirect(request.getContextPath()+"/user/login");
 			return false;
 		}
@@ -54,6 +60,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 		UserVo authuser =(UserVo) session.getAttribute("authuser");
 		
 		if(authuser == null) {
+			session.setAttribute("redirectURI", request.getHeader("Referer"));
+			
 			response.sendRedirect(request.getContextPath()+"/user/login");
 			return false;
 		}

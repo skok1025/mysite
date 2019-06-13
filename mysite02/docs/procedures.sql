@@ -15,6 +15,9 @@ DELIMITER $$
 	commit;    
 
 	end $$
+    
+    
+    
 
 	CREATE procedure proc_selectguestbook
 	()

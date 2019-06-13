@@ -24,12 +24,18 @@ public class AuthAdminAccessInterceptor extends HandlerInterceptorAdapter {
 		HttpSession session = request.getSession();
 		
 		if(session == null) {
+			// 돌아가기 위한 URI 세션객체에 설정
+			session.setAttribute("redirectURI", request.getHeader("Referer"));
+			
 			response.sendRedirect(request.getContextPath()+"/user/login");
 			return false;
 		}
 		UserVo authuser = (UserVo) session.getAttribute("authuser");
 		
 		if(authuser == null) {
+			// 돌아가기 위한 URI 세션객체에 설정
+			session.setAttribute("redirectURI", request.getHeader("Referer"));
+			
 			response.sendRedirect(request.getContextPath()+"/user/login");
 			return false;
 		}

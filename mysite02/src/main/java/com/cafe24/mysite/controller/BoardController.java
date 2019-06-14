@@ -63,9 +63,12 @@ public class BoardController {
 			@ModelAttribute @Valid BoardVo boardVo,
 			BindingResult bindresult,
 			Model model) {
+		long start = System.currentTimeMillis(); //시작하는 시점 계산
+
 		int result = 0;
 		
 		result = boardservice.writeContents(replyno,boardVo);
+		System.out.println("insert board result: "+result);
 		if(bindresult.hasErrors()) {
 			List<ObjectError> list =bindresult.getAllErrors();
 			for(ObjectError error:list) {
@@ -74,6 +77,9 @@ public class BoardController {
 			model.addAllAttributes(bindresult.getModel());
 			return "/board/write";
 		}
+		long end = System.currentTimeMillis(); //프로그램이 끝나는 시점 계산
+		System.out.println( "실행 시간 : " + ( end - start ));
+
 		return "redirect:/board/list";
 	}
 	

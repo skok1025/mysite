@@ -233,6 +233,11 @@ public class BoardDao {
 		return sqlSession.selectOne("board.getorderno",replyno);
 	}
 
+	// procedure
+	public int updateOrderNoAndReplyInsert(Map<String, Object> map) {
+		return sqlSession.update("board.procInsertreply", map);
+	}
+	
 	public void updateOrderNo(Map<String, Integer> map) {
 		sqlSession.update("board.updateorderno", map);
 	}
@@ -252,6 +257,8 @@ public class BoardDao {
 	public int getTotalcount(String kwd) {
 		return sqlSession.selectOne("board.gettotalcount",kwd);
 	}
+
+	
 
 //	public boolean insert(BoardVo vo) {
 //		Boolean result = false;

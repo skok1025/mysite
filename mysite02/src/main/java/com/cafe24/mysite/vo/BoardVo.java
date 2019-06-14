@@ -31,6 +31,16 @@ public class BoardVo {
 	private String originfilename;
 	private String savefilename;
 
+	private int presult;
+	
+	public int getPresult() {
+		return presult;
+	}
+
+	public void setPresult(int presult) {
+		this.presult = presult;
+	}
+
 	public String getIsexist() {
 		return isexist;
 	}

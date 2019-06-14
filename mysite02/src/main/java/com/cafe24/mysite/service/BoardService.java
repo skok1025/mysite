@@ -101,11 +101,23 @@ public class BoardService {
 				int groupno = boarddao.getGroupNo(replyno); // 답하려는 글의 group_no
 				int orderno = boarddao.getOrderNo(replyno); // 답하려는 글의 order_no
 				int depth = boarddao.getDepth(replyno); // 답하려는 글의 깊이
-
+				
+				// procedure
+				//Map<String, Object> map = new HashMap<String, Object>();
+				
 				Map<String, Integer> map = new HashMap<String, Integer>();
+				
 				map.put("groupno", groupno);
 				map.put("orderno", orderno);
-
+				
+				// procedure
+//				map.put("title", vo.getTitle());
+//				map.put("contents",vo.getContents());
+//				map.put("depth", depth);
+//				map.put("originfilename", originfilename);
+//				map.put("savefilename", savefilename);
+//				map.put("memberNo", vo.getMemberNo());
+				
 				// 해당 group_no 의 해당 orderno 와 같거나 큰 것들은 +1 업데이트
 				boarddao.updateOrderNo(map);
 
@@ -114,6 +126,9 @@ public class BoardService {
 				vo.setDepth(depth);
 
 				return boarddao.replyinsert(vo);
+				
+				// procedure
+//				return boarddao.updateOrderNoAndReplyInsert(map);
 			}
 
 		} catch (IOException e) {

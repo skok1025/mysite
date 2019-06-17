@@ -39,7 +39,7 @@ public class BoardService {
 		if (previousPage == 0) {
 			result += "<li>◀</li>\r\n";
 		} else {
-			result += "<li><a href='/mysite02/board/list?page=" + previousPage + "&kwd="+kwd+"'>◀</a></li>\r\n";
+			result += "<li><a href='/${pageContext.servletContext.contextPath }/board/list?page=" + previousPage + "&kwd="+kwd+"'>◀</a></li>\r\n";
 		}
 
 		for (int i = 0; i < PAGE_COUNT; i++) {
@@ -49,14 +49,14 @@ public class BoardService {
 				if ((firstPage + i) > maxpage) {
 					result += "<li>" + (firstPage + i) + "</li>\r\n";
 				} else {
-					result += "<li><a href='/mysite02/board/list?page=" + (firstPage + i) + "&kwd="+kwd+"'>" + (firstPage + i)
+					result += "<li><a href='/${pageContext.servletContext.contextPath }/board/list?page=" + (firstPage + i) + "&kwd="+kwd+"'>" + (firstPage + i)
 							+ "</a></li>\r\n";
 				}
 			}
 		}
 
 		if (nextPage <= maxpage) {
-			result += "<li><a href='/mysite2/board/list?page=" + nextPage + "&kwd="+kwd+"'>▶</a></li>\r\n";
+			result += "<li><a href='/${pageContext.servletContext.contextPath }/board/list?page=" + nextPage + "&kwd="+kwd+"'>▶</a></li>\r\n";
 		} else {
 			result += "<li>▶</li>\r\n";
 		}

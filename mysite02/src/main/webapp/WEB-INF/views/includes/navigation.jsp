@@ -10,23 +10,25 @@
 				<li class="selected"><a href="<%=request.getContextPath()%>/">김석현</a></li>
 				<li><a href="<%=request.getContextPath()%>/guestbook/list">방명록</a></li>
 				<li><a href="<%=request.getContextPath()%>/board/list?kwd=${param.kwd}">게시판</a></li>
+				<c:if test="${authuser.role eq 'ADMIN' }"><li><a href="${pageContext.request.contextPath }/admin/role">권한 관리</a></li></c:if>	
 			</c:when>
 			<c:when test='${param.menu == "board" }'>
 				<li><a href="<%=request.getContextPath()%>/">김석현</a></li>
 				<li><a href="<%=request.getContextPath()%>/guestbook/list">방명록</a></li>
 				<li class="selected"><a href="<%=request.getContextPath()%>/board/list?kwd=${param.kwd}">게시판</a></li>
+				<c:if test="${authuser.role eq 'ADMIN' }"><li><a href="${pageContext.request.contextPath }/admin/role">권한 관리</a></li></c:if>	
 			</c:when>
 			<c:when test='${param.menu == "guestbook" }'>
 				<li><a href="<%=request.getContextPath()%>/">김석현</a></li>
 				<li class="selected"><a href="<%=request.getContextPath()%>/guestbook/list">방명록</a></li>
 				<li><a href="<%=request.getContextPath()%>/board/list?kwd=${param.kwd}">게시판</a></li>
-
+				<c:if test="${authuser.role eq 'ADMIN' }"><li><a href="${pageContext.request.contextPath }/admin/role">권한 관리</a></li></c:if>	
 			</c:when>
 			<c:otherwise>
 				<li><a href="<%=request.getContextPath()%>/">김석현</a></li>
 				<li><a href="<%=request.getContextPath()%>/guestbook">방명록</a></li>
 				<li><a href="<%=request.getContextPath()%>/board?kwd=${param.kwd}">게시판</a></li>
-
+				<c:if test="${authuser.role eq 'ADMIN' }"><li><a href="${pageContext.request.contextPath }/admin/role">권한 관리</a></li></c:if>	
 			</c:otherwise>
 		</c:choose>
 

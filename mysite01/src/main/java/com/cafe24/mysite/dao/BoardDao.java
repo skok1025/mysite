@@ -20,7 +20,7 @@ public class BoardDao {
 
 			Class.forName("org.mariadb.jdbc.Driver");
 
-			String url = "jdbc:mariadb://192.168.1.42:3307/webdb";
+			String url = "jdbc:mariadb://192.168.1.46:3307/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 		} catch (ClassNotFoundException e) {
@@ -41,7 +41,7 @@ public class BoardDao {
 
 			Class.forName("org.mariadb.jdbc.Driver");
 
-			String url = "jdbc:mariadb://192.168.1.42:3307/webdb";
+			String url = "jdbc:mariadb://192.168.1.46:3307/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			System.out.println("연결성공");
@@ -107,7 +107,7 @@ public class BoardDao {
 
 			Class.forName("org.mariadb.jdbc.Driver");
 
-			String url = "jdbc:mariadb://192.168.1.42:3307/webdb";
+			String url = "jdbc:mariadb://192.168.1.46:3307/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			System.out.println("연결성공");
@@ -174,7 +174,7 @@ public class BoardDao {
 
 			Class.forName("org.mariadb.jdbc.Driver");
 
-			String url = "jdbc:mariadb://192.168.1.42:3307/webdb";
+			String url = "jdbc:mariadb://192.168.1.46:3307/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			System.out.println("연결성공");
@@ -222,7 +222,7 @@ public class BoardDao {
 
 			Class.forName("org.mariadb.jdbc.Driver");
 
-			String url = "jdbc:mariadb://192.168.1.42:3307/webdb";
+			String url = "jdbc:mariadb://192.168.1.46:3307/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 
 			System.out.println("연결성공");

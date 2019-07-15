@@ -16,7 +16,7 @@ public class AuthLoginInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		System.out.println("AuthLoginInterceptor-preHandle");
-		System.out.println("Referer Header: "+request.getHeader("Referer"));
+		System.out.println("Referer Header: "+request.getHeader("Referer")+" Request Method: "+request.getMethod());
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		

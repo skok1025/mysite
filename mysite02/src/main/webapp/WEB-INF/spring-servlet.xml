@@ -80,6 +80,11 @@
 	<mvc:interceptors>
 		
 		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean class="com.cafe24.mysite.interceptor.MyInterceptor01"/>
+		</mvc:interceptor>
+
+		<mvc:interceptor>
 			<mvc:mapping path="/admin/**"/>
 			<bean class="com.cafe24.security.AuthAdminAccessInterceptor"/>
 		</mvc:interceptor>

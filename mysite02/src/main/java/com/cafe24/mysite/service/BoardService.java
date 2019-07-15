@@ -39,7 +39,7 @@ public class BoardService {
 		if (previousPage == 0) {
 			result += "<li>◀</li>\r\n";
 		} else {
-			result += "<li><a href='/${pageContext.servletContext.contextPath }/board/list?page=" + previousPage + "&kwd="+kwd+"'>◀</a></li>\r\n";
+			result += "<li><a href='/mysite02/board/list?page=" + previousPage + "&kwd="+kwd+"'>◀</a></li>\r\n";
 		}
 
 		for (int i = 0; i < PAGE_COUNT; i++) {
@@ -49,14 +49,14 @@ public class BoardService {
 				if ((firstPage + i) > maxpage) {
 					result += "<li>" + (firstPage + i) + "</li>\r\n";
 				} else {
-					result += "<li><a href='/${pageContext.servletContext.contextPath }/board/list?page=" + (firstPage + i) + "&kwd="+kwd+"'>" + (firstPage + i)
+					result += "<li><a href='/mysite02/board/list?page=" + (firstPage + i) + "&kwd="+kwd+"'>" + (firstPage + i)
 							+ "</a></li>\r\n";
 				}
 			}
 		}
 
 		if (nextPage <= maxpage) {
-			result += "<li><a href='/${pageContext.servletContext.contextPath }/board/list?page=" + nextPage + "&kwd="+kwd+"'>▶</a></li>\r\n";
+			result += "<li><a href='/mysite02/board/list?page=" + nextPage + "&kwd="+kwd+"'>▶</a></li>\r\n";
 		} else {
 			result += "<li>▶</li>\r\n";
 		}
@@ -103,32 +103,32 @@ public class BoardService {
 				int depth = boarddao.getDepth(replyno); // 답하려는 글의 깊이
 				
 				// procedure
-				//Map<String, Object> map = new HashMap<String, Object>();
+				Map<String, Object> map = new HashMap<String, Object>();
 				
-				Map<String, Integer> map = new HashMap<String, Integer>();
+				//Map<String, Integer> map = new HashMap<String, Integer>();
 				
 				map.put("groupno", groupno);
 				map.put("orderno", orderno);
 				
 				// procedure
-//				map.put("title", vo.getTitle());
-//				map.put("contents",vo.getContents());
-//				map.put("depth", depth);
-//				map.put("originfilename", originfilename);
-//				map.put("savefilename", savefilename);
-//				map.put("memberNo", vo.getMemberNo());
+				map.put("title", vo.getTitle());
+				map.put("contents",vo.getContents());
+				map.put("depth", depth);
+				map.put("originfilename", originfilename);
+				map.put("savefilename", savefilename);
+				map.put("memberNo", vo.getMemberNo());
 				
 				// 해당 group_no 의 해당 orderno 와 같거나 큰 것들은 +1 업데이트
-				boarddao.updateOrderNo(map);
-
-				vo.setGroup_no(groupno);
-				vo.setOrder_no(orderno);
-				vo.setDepth(depth);
-
-				return boarddao.replyinsert(vo);
+//				boarddao.updateOrderNo(map);
+//
+//				vo.setGroup_no(groupno);
+//				vo.setOrder_no(orderno);
+//				vo.setDepth(depth);
+//
+//				return boarddao.replyinsert(vo);
 				
 				// procedure
-//				return boarddao.updateOrderNoAndReplyInsert(map);
+				return boarddao.updateOrderNoAndReplyInsert(map);
 			}
 
 		} catch (IOException e) {

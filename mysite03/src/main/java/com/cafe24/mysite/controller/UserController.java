@@ -83,10 +83,11 @@ public class UserController {
 		return "user/updatesuccess";
 	}
 
-	@RequestMapping(value ="/auth", method = RequestMethod.POST)
-	public void auth() {}
-	@RequestMapping(value ="/logout", method = RequestMethod.GET)
-	public void logout() {}
+	//@RequestMapping(value ="/auth", method = RequestMethod.POST)
+	//public void auth() {}
+	
+	//@RequestMapping(value ="/logout", method = RequestMethod.GET)
+	//public void logout() {}
 //	컨트롤러에서 처리
 //	@ExceptionHandler(Exception.class)
 //	public String handleUserDaoException() {

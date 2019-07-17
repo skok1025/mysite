@@ -33,7 +33,7 @@
             <appender-ref ref="fileAppender" />
     </logger>
     <!-- 루트(글로벌) 로거 -->
-	<root level="warn">
+	<root level="info">
 		<appender-ref ref="consoleAppender" />
 	</root>
 	<!-- <appender name="fileAppender3" class="ch.qos.logback.core.rolling.RollingFileAppender">

@@ -6,7 +6,7 @@
 	<insert id="insert" parameterType="uservo">
 	<![CDATA[
 		insert 
-		into user (no,name,email,password,gender,reg_date)
+		into user (no,name,email,password,gender,join_date)
 		values(null,#{name},#{email},#{password},#{gender},now())
 	]]>
 	<selectKey keyProperty="no" resultType="long" order="AFTER"><!-- 본 쿼리가 끝난 후 실행  -->
@@ -31,13 +31,15 @@
 		where no = #{no}
 	]]>
 	</select>
+	
 	<select id="getByEmail" resultType="uservo" parameterType="string">
-	<![CDATA[
-		select no,name,email,password,gender 
-		from user 
-		where email = #{email}
-	]]>
+		<![CDATA[
+			select no,name,email,password,role 
+				from user 
+					where email=#{val}
+		]]>
 	</select>
+	
 	<update id="update" parameterType="uservo">
 		<![CDATA[
 			update user

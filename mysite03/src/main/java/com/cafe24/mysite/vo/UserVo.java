@@ -17,7 +17,15 @@ public class UserVo {
 	
 	private String password;
 	private String gender;
+	private String role="ROLE_USER";
 	private String join_date;
+
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	
 	public UserVo() {
 	}
@@ -64,7 +72,7 @@ public class UserVo {
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
-				+ gender + ", join_date=" + join_date + "]";
+				+ gender + ", role=" + role + ", join_date=" + join_date + "]";
 	}
 	
 	

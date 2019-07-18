@@ -1,13 +1,19 @@
 package com.cafe24.config.app;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
@@ -88,31 +94,52 @@ all permitted
 			.antMatchers("/admin/**").hasRole("ADMIN")
 			// All Permit
 			//.antMatchers("/**").permitAll()
-			.anyRequest().permitAll();
+			.anyRequest().permitAll()
 			
+			//
+			// 2. CSRF 설정
+			// Temp
+			//http.csrf().disable();
+		
 		
 			//
 			// 2. 로그인 설정
 			//
-			http
+			.and()
 			.formLogin()
 			.loginPage("/user/login")
-			.loginProcessingUrl("user/auth")
+			.loginProcessingUrl("/user/auth")
 			.failureUrl("/user/login?result=fail")
 			.defaultSuccessUrl("/",true)
 			.usernameParameter("email")
-			.passwordParameter("password");
+			.passwordParameter("password")
 			
 			//
 			// 3. 로그아웃 설정
 			//
-			http
+			.and()
 			.logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
 			.logoutSuccessUrl("/")
 			.invalidateHttpSession(true)
-			;
 			
+			
+			// 
+			// 4. Access Denial Handler
+			//
+			.and()
+			.exceptionHandling()
+			.accessDeniedPage("/WEB-INF/views/error/403.jsp")
+		
+			//
+			// 5. Remember Me (자동로그인)
+			//
+			.and()
+			.rememberMe()
+			.key("mysite3")
+			.rememberMeParameter("remember-me");
+		
+		
 			
 }
 
@@ -121,7 +148,27 @@ all permitted
 	// ACL
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		super.configure(auth);
+		// 비번 encoding?
+		auth
+			.userDetailsService(userDetailsService)
+			.and()
+			.authenticationProvider(autenicationProvider());
+	}
+	
+	@Bean
+	public AuthenticationProvider autenicationProvider() {
+		DaoAuthenticationProvider authprovider = 
+				new DaoAuthenticationProvider();
+		
+		authprovider.setUserDetailsService(userDetailsService);
+		authprovider.setPasswordEncoder(passwordEncoder());
+		
+		return authprovider;
+	}
+	
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 

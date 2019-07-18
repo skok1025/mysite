@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cafe24.mysite.security.AuthUser;
+import com.cafe24.mysite.security.SecurityUser;
 import com.cafe24.mysite.service.BoardService;
 import com.cafe24.mysite.vo.BoardVo;
 import com.cafe24.mysite.vo.UserVo;
-import com.cafe24.security.Auth;
-import com.cafe24.security.AuthUser;
 
 @Controller
 @RequestMapping("/board")
@@ -46,14 +46,14 @@ public class BoardController {
 	}
 	
 	//write페이지 가기
-	@Auth(role=Auth.Role.USER)
+	
 	@RequestMapping(value="/write",method = RequestMethod.GET)
 	public String write() {
 		return "board/write";
 	}
 	
 	//답글
-	@Auth
+	
 	@RequestMapping(value="/write/{no}",method = RequestMethod.GET)
 	public String write(@PathVariable(value="no")long no,Model model) {
 		
@@ -121,7 +121,7 @@ public class BoardController {
 		return "board/view";
 	}
 	//수정 화면 
-	@Auth
+	
 	@RequestMapping(value="/modify/{no}", method = RequestMethod.GET)
 	public String update(@PathVariable(value="no")long no,Model model) {
 		BoardVo boardVo = boardService.getView(no);
@@ -135,13 +135,14 @@ public class BoardController {
 		return "redirect:/board/view/"+boardVo.getNo();
 	}
 	//삭제
-	@Auth
+
 	@RequestMapping(value="/delete/{no}")
-	public String delete(@PathVariable(value="no")long no,@AuthUser UserVo authUser) {
+	public String delete(@PathVariable(value="no")long no
+			,@AuthUser SecurityUser securityUser) {
 		//삭제
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("no", no);
-		map.put("user_no", authUser.getNo());
+		map.put("user_no", securityUser.getNo());
 		
 		boardService.delete(map);
 		return "redirect:/board";

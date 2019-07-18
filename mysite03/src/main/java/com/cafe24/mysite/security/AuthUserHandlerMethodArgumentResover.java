@@ -1,9 +1,12 @@
-package com.cafe24.security;
+package com.cafe24.mysite.security;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
 import org.springframework.core.MethodParameter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.support.WebArgumentResolver;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -16,21 +19,25 @@ public class AuthUserHandlerMethodArgumentResover implements HandlerMethodArgume
 
 
 	@Override
-	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-								NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+	public Object resolveArgument(MethodParameter parameter, 
+								ModelAndViewContainer mavContainer,
+								NativeWebRequest webRequest, 
+								WebDataBinderFactory binderFactory) throws Exception {
 		
-		if(supportsParameter(parameter)==false) {
-			return WebArgumentResolver.UNRESOLVED; //@AuthUser를 붙인 객체(controller.update.authUser)에 저장이 된다.
+		Object principal = null;
+		
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		if(authentication != null) {
+			principal = authentication.getPrincipal();
 		}
 		
-		HttpServletRequest request= webRequest.getNativeRequest(HttpServletRequest.class);
-		HttpSession session = request.getSession();
-		if(session == null) {
+		if(principal == null || principal.getClass() == String.class) {
 			return null;
 		}
 		
-		
-		return session.getAttribute("authUser");
+		return principal;
 	}
 	
 
@@ -43,7 +50,8 @@ public class AuthUserHandlerMethodArgumentResover implements HandlerMethodArgume
 			return false;
 		}
 		
-		if(parameter.getParameterType().equals(UserVo.class)==false) {//클래스 객체들을 비교함
+		// 파라미터 타입이 Security User 가 아님
+		if(parameter.getParameterType().equals(SecurityUser.class)==false) {//클래스 객체들을 비교함
 			return false;
 		}
 		

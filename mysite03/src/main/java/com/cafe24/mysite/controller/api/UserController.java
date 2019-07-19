@@ -22,4 +22,10 @@ public class UserController {
 		Boolean exist = userService.existEmail(email);
 		return JSONResult.success(exist);
 	}
+
+	
+	
+	
+	
+	
 }

@@ -14,12 +14,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import com.cafe24.mysite.security.CustomUrlAuthenticationSuccessHandler;
 
 
 /*
 Security Filter Chain
-
 	 1. ChannelProcessingFilter
 	 2. SecurityContextPersistenceFilter		( auto-config default, Required )
 	 3. ConcurrentSessionFilter
@@ -39,8 +41,7 @@ Security Filter Chain
 */	
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig 
-extends WebSecurityConfigurerAdapter {
+public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -94,23 +95,25 @@ all permitted
 			.antMatchers("/admin/**").hasRole("ADMIN")
 			// All Permit
 			//.antMatchers("/**").permitAll()
-			.anyRequest().permitAll()
+			.anyRequest().permitAll();
 			
 			//
 			// 2. CSRF 설정
 			// Temp
-			//http.csrf().disable();
+			http.csrf().disable();
 		
 		
 			//
 			// 2. 로그인 설정
 			//
-			.and()
+			http
 			.formLogin()
 			.loginPage("/user/login")
 			.loginProcessingUrl("/user/auth")
 			.failureUrl("/user/login?result=fail")
-			.defaultSuccessUrl("/",true)
+			// Ajax 또는 WEB 요청에 따라서 반응을 다르게 - authenticationSuccessHandler
+			.successHandler(authenticationSuccessHandler())
+			//.defaultSuccessUrl("/",true)
 			.usernameParameter("email")
 			.passwordParameter("password")
 			
@@ -121,6 +124,7 @@ all permitted
 			.logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
 			.logoutSuccessUrl("/")
+			.deleteCookies("JSESSIONID")
 			.invalidateHttpSession(true)
 			
 			
@@ -142,6 +146,10 @@ all permitted
 		
 			
 }
+	
+	public AuthenticationSuccessHandler authenticationSuccessHandler() {
+		return new CustomUrlAuthenticationSuccessHandler();
+	}
 
 	
 	
@@ -162,7 +170,7 @@ all permitted
 		
 		authprovider.setUserDetailsService(userDetailsService);
 		authprovider.setPasswordEncoder(passwordEncoder());
-		
+
 		return authprovider;
 	}
 	

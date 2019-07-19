@@ -24,6 +24,38 @@
 	console.log(csrfParameter)
 	console.log(csrfHeader)
 	console.log(csrfToken)
+	
+	
+	$(function(){
+		$("#login-form2").submit(function(e){
+			e.preventDefault();
+			
+			var params = "email="+$("#email").val()+"&password="+$("#password").val();
+			$.ajax({
+				url: "${pageContext.request.contextPath }/user/auth",
+				type: "post",
+				//contentType: "application/json" //post 방식으로  JSON Type으로 데이터를 보낼 때
+				dataType: "json",
+				data: params,
+				success: function(response){
+					if(response.result != "success"){
+						console.error(reponse.message);
+						return;
+					}
+					console.log(response);
+				},
+				error: function(jqXHR, status, e){
+					console.error(status + ":" + e);
+				}
+			});
+			
+			
+		});
+	});
+	
+	
+	
+	
 </script>
 </head>
 <body>
